@@ -18,10 +18,10 @@
       }
     ],
     "paths": {
-      "@/components/*": ["./src/*"],
-      "@/atoms/*": ["src/components/atoms/*"],
-      "@/molecules/*": ["src/components/molecules/*"],
-      "@/organisms/*": ["src/components/organisms/*"]
+      "@components/*": ["./src/*"],
+      "@atoms/*": ["./src/components/atoms/*"],
+      "@molecules/*": ["./src/components/molecules/*"],
+      "@organisms/*": ["./src/components/organisms/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
