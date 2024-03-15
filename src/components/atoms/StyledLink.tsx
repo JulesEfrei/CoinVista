@@ -1,25 +1,23 @@
 import { cva } from "class-variance-authority";
-import { MouseEventHandler, ReactNode } from "react";
+import Link, { LinkProps } from "next/link";
+import { ReactNode } from "react";
 
-interface Props {
-  type?: "submit" | "button";
-  onClick: () => void;
-  children: ReactNode;
-  disabled?: boolean;
+interface Props extends LinkProps {
   intent?: /*"primary" | "secondary" |*/
   "danger" | "light" | "white" | "dark" | "underline" | "disabled";
   size?: "sm" | "md" | "lg" | "thin";
   align?: "center" | "left" | "right";
+  children: ReactNode;
 }
 
-const Button = (props: Props) => {
-  const buttonClasses = cva(
+const StyledLink = (props: Props) => {
+  const linkClasses = cva(
     ["rounded-md", "py-2", "flex", "items-center", "font-medium", "gap-2"],
     {
       variants: {
         intent: {
           /*primary: "",
-        secondary: "",*/
+            secondary: "",*/
           light: "text-slate-800 bg-slate-100 hover:bg-slate-200",
           dark: "text-white bg-black",
           white:
@@ -49,19 +47,17 @@ const Button = (props: Props) => {
   );
 
   return (
-    <button
-      type={props.type ?? "button"}
-      onClick={props.onClick}
-      disabled={!!props.disabled}
-      className={buttonClasses({
-        intent: props.disabled ? "disabled" : props.intent,
+    <Link
+      {...props}
+      className={linkClasses({
+        intent: props.intent,
         size: props.size,
         align: props.align,
       })}
     >
       {props.children}
-    </button>
+    </Link>
   );
 };
 
-export default Button;
+export default StyledLink;
