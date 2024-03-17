@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, createContext, useState } from "react";
+import { ReactNode, createContext, useEffect, useState } from "react";
 import { Inter } from "next/font/google";
 
 enum ThemeEnum {
@@ -12,13 +12,18 @@ const inter = Inter({ subsets: ["latin"] });
 export const ThemeContext = createContext(null);
 
 const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
-    ? "dark"
-    : "light";
+  const [currTheme, setCurrTheme] = useState(ThemeEnum.light);
+  let systemTheme, storedTheme;
 
-  const [currTheme, setCurrTheme] = useState(
-    (localStorage.getItem("theme") as ThemeEnum) || systemTheme
-  );
+  useEffect(() => {
+    systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+
+    storedTheme = localStorage.getItem("theme") as ThemeEnum;
+
+    setCurrTheme(storedTheme || systemTheme);
+  }, []);
 
   const switchTheme = () => {
     const root = document.getElementsByTagName("body")[0];
@@ -35,11 +40,7 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
   return (
     <ThemeContext.Provider value={{ currTheme, switchTheme }}>
       <body
-        className={
-          inter.className +
-          " w-screen min-h-screen dark:bg-slate-950 dark:text-white " +
-          currTheme
-        }
+        className={`${inter.className} ${currTheme} w-screen min-h-screen dark:text-white dark:bg-black`}
       >
         {children}
       </body>

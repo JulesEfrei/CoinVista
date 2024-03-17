@@ -13,11 +13,15 @@ const Input = (props: InputProps) => {
       "focus:border-slate-700",
       "focus:border-2",
       "invalid:border-danger",
+      "dark:bg-black",
+      "dark:text-white",
+      "placeholder:text-gray-500",
+      "dark:border-gray-500",
     ],
     {
       variants: {
         disabled: {
-          true: "text-slate-300 border-slate-300 placeholder:text-slate-300",
+          true: "text-slate-300 border-slate-300 placeholder:text-slate-300 dark:opacity-25",
         },
         size: {
           sm: "px-1 text-sm h-5",

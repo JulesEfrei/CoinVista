@@ -21,12 +21,14 @@ const Button = (props: Props) => {
           /*primary: "",
         secondary: "",*/
           light: "text-slate-800 bg-slate-100 hover:bg-slate-200",
-          dark: "text-white bg-black",
+          dark: "text-white bg-black dark:bg-gray-800 dark:hover:opacity-75",
           white:
             "text-slate-800 bg-white hover:bg-slate-200 border-1 border-slate-400",
-          danger: "text-white bg-red-400 hover:bg-danger",
-          underline: "text-black hover:underline",
-          disabled: "text-slate-400 bg-slate-200",
+          danger:
+            "text-white bg-red-400 hover:bg-danger dark:text-white dark dark:bg-danger dark:hover:bg-red-800",
+          underline: "text-black hover:underline dark:text-white",
+          disabled:
+            "text-slate-400 bg-slate-200 dark:text-slate-700 dark:bg-black dark:border-1 dark:border-slate-700",
         },
         size: {
           sm: "px-3 text-sm",

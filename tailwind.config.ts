@@ -4,9 +4,9 @@ const colors = require("tailwindcss/colors");
 const config: Config = {
   darkMode: "selector",
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/utils/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     colors: {
@@ -25,8 +25,9 @@ const config: Config = {
         400: "#f87171",
         500: "#ef4444",
         600: "#dc2626",
+        800: "#991b1b",
       },
-      black: "#020617",
+      black: "#000000",
       white: "#f8fafc",
       primary: "#0F172A",
       creme: "#E3E3E3",
@@ -34,6 +35,10 @@ const config: Config = {
       warning: "#facc15",
       info: "#0284c7",
       success: "#22c55e",
+      gray: {
+        500: "#A1A1A9",
+        800: "#27272A",
+      },
     },
     fontSize: {
       h1: [
