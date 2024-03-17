@@ -9,14 +9,14 @@ interface InputFieldProps extends InputProps {
 }
 
 const InputField = (props: InputFieldProps) => {
-  const labelClasses = cva(["mb-1", "text-black"], {
+  const labelClasses = cva(["mb-1", "text-black", "dark:text-white"], {
     variants: {
       size: {
         sm: "text-sm",
         md: "text-p",
       },
       disabled: {
-        true: "text-slate-300",
+        true: "text-slate-300 dark:text-gray-500",
       },
     },
     defaultVariants: {

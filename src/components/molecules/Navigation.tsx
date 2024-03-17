@@ -1,3 +1,4 @@
+import ThemeSwitcher from "@atoms/ThemeSwitcher";
 import Link from "next/link";
 
 function Navigation() {
@@ -27,6 +28,9 @@ function Navigation() {
             </li>
           );
         })}
+        <li className="my-2 py-2">
+          <ThemeSwitcher />
+        </li>
       </ul>
     </>
   );

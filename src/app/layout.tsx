@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import Navigation from "@molecules/Navigation";
-
-const inter = Inter({ subsets: ["latin"] });
+import ThemeProvider from "../utils/Theme";
 
 export const metadata: Metadata = {
   title: "Home - Dashboard",
@@ -17,10 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className + " w-screen min-h-screen"}>
+      <ThemeProvider>
         <main>{children}</main>
         <Navigation />
-      </body>
+      </ThemeProvider>
     </html>
   );
 }
