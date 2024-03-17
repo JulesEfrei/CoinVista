@@ -1,16 +1,9 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import Navigation from "@molecules/Navigation";
 import { cookies } from "next/headers";
 import ThemeSwitcher from "@atoms/ThemeSwitcher";
-
-enum Theme {
-  dark = "dark",
-  light = "light",
-}
-
-const inter = Inter({ subsets: ["latin"] });
+import ThemeProvider from "../utils/Theme";
 
 export const metadata: Metadata = {
   title: "Home - Dashboard",
@@ -22,22 +15,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const theme = cookies().get("x-coinvista-theme");
-
   return (
-    <html lang="en" className={theme?.value}>
-      <body
-        className={
-          inter.className +
-          " w-screen min-h-screen dark:bg-slate-950 dark:text-white"
-        }
-      >
+    <html lang="en">
+      <ThemeProvider>
         <main>{children}</main>
         <Navigation />
-        <ThemeSwitcher
-          currTheme={theme?.value === "dark" ? Theme.dark : Theme.light}
-        />
-      </body>
+        <ThemeSwitcher />
+      </ThemeProvider>
     </html>
   );
 }
