@@ -7,14 +7,22 @@ interface Props {
   children: ReactNode;
   disabled?: boolean;
   intent?: /*"primary" | "secondary" |*/
-  "danger" | "light" | "white" | "dark" | "underline" | "disabled";
+  "danger" | "light" | "white" | "dark" | "underline" | "disabled" | "icon";
   size?: "sm" | "md" | "lg" | "thin";
   align?: "center" | "left" | "right";
 }
 
 const Button = (props: Props) => {
   const buttonClasses = cva(
-    ["rounded-md", "py-2", "flex", "items-center", "font-medium", "gap-2"],
+    [
+      "rounded-md",
+      "py-2",
+      "flex",
+      "items-center",
+      "font-medium",
+      "gap-2",
+      "shadow-sm",
+    ],
     {
       variants: {
         intent: {
@@ -29,6 +37,7 @@ const Button = (props: Props) => {
           underline: "text-black hover:underline dark:text-white",
           disabled:
             "text-slate-400 bg-slate-200 dark:text-slate-700 dark:bg-black dark:border-1 dark:border-slate-700",
+          icon: "border-1 text-black border-slate-300 bg-white hover:bg-slate-200 dark:border-slate-700 dark:text-white dark:bg-black dark:hover:bg-gray-800",
         },
         size: {
           sm: "px-3 text-sm",
