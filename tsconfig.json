@@ -22,7 +22,8 @@
       "@atoms/*": ["components/atoms/*"],
       "@molecules/*": ["components/molecules/*"],
       "@organisms/*": ["components/organisms/*"],
-      "@types/*": ["type/*"]
+      "@types/*": ["type/*"],
+      "@translation/*": ["translation/*"]
     }
   },
   "include": [
@@ -31,7 +32,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/components/**/*.tsx",
-    "src/app/**/*.tsx"
+    "src/app/**/*.tsx",
+    "src/app/middleware.js"
   ],
   "exclude": ["node_modules"]
 }
