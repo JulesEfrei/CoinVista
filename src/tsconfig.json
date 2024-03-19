@@ -22,9 +22,16 @@
       "@atoms/*": ["components/atoms/*"],
       "@molecules/*": ["components/molecules/*"],
       "@organisms/*": ["components/organisms/*"],
-      "@type/*": ["types/*"]
+      "@type/*": ["types/*"],
+      "@translation/*": ["translation/*"]
     }
   },
-  "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "middleware.ts"
+  ],
   "exclude": ["node_modules"]
 }
