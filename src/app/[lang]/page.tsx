@@ -5,7 +5,6 @@ export default async function Home({ params }: { params: { lang: string } }) {
   return (
     <>
       <h1>{translation.home.title}</h1>
-      <p>{params.lang}</p>
     </>
   );
 }

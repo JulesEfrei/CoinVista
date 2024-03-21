@@ -1,7 +1,7 @@
 "use client";
 
 import { useContext } from "react";
-import { ThemeContext } from "utils/Theme";
+import { ThemeContext } from "@atoms/context/Theme";
 import { FiSun } from "react-icons/fi";
 import { BsMoonStars } from "react-icons/bs";
 
