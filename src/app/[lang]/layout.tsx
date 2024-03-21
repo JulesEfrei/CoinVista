@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-import Navigation from "@/components/components/molecules/Navigation";
-
-const inter = Inter({ subsets: ["latin"] });
+import Navigation from "@molecules/Navigation";
+import ThemeProvider from "../../utils/Theme";
 
 export const metadata: Metadata = {
   title: "Home - Dashboard",
@@ -12,15 +10,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: { lang: string };
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang={params.lang.split("-")[0] || "en"}>
+      <ThemeProvider>
         <main>{children}</main>
         <Navigation />
-      </body>
+      </ThemeProvider>
     </html>
   );
 }
