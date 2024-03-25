@@ -1,5 +1,6 @@
-import CryptoItemList from "@molecules/CryptoItemList";
+import CryptoItemList from "@molecules/cryptoItemList/CryptoItemList";
 import { getTranslation } from "./translation";
+import CryptoItemListPlaceholder from "@molecules/cryptoItemList/CryptoItemListPlaceholder";
 
 export default async function Home({ params }: { params: { lang: string } }) {
   const translation = await getTranslation(params.lang.split("-")[0]);
@@ -128,7 +129,7 @@ export default async function Home({ params }: { params: { lang: string } }) {
         {data.map((elm) => (
           <div className="w-full">
             {/* md:w-2/3 */}
-            <CryptoItemList crypto={elm} isServerSaved={false} />
+            <CryptoItemListPlaceholder />
             <br />
           </div>
         ))}
