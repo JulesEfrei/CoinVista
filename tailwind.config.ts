@@ -69,6 +69,9 @@ const config: Config = {
       borderWidth: {
         1: "1px",
       },
+      screens: {
+        xs: "500px",
+      },
     },
   },
   plugins: [],
