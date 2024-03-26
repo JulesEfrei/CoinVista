@@ -1,4 +1,4 @@
-export interface assetResponse {
+export interface apiAssetResponse {
   id: string;
   rank: string;
   symbol: string;
@@ -11,5 +11,14 @@ export interface assetResponse {
   changePercent24Hr: string;
   vwap24Hr: string;
 }
+
+export interface assetResponse extends apiAssetResponse {
+  isSaved?: boolean;
+}
+
+export type apiAssetsResponse = {
+  data: apiAssetResponse[];
+  timestamp: string;
+};
 
 export type assetsResponse = assetResponse[];

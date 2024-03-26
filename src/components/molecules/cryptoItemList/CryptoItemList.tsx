@@ -2,6 +2,7 @@
 
 import CLink from "@atoms/CLink";
 import { assetResponse } from "@type/api/assets";
+import Image from "next/image";
 import { useState } from "react";
 import {
   PiBookmarkSimpleFill,
@@ -9,11 +10,8 @@ import {
   PiFire,
 } from "react-icons/pi";
 
-const CryptoItemList = (props: {
-  crypto: assetResponse;
-  isServerSaved: boolean;
-}) => {
-  const [isSaved, setIsSaved] = useState(props.isServerSaved);
+const CryptoItemList = ({ crypto }: { crypto: assetResponse }) => {
+  const [isSaved, setIsSaved] = useState(crypto.isSaved);
 
   const formatNumber = (n) => {
     n = Number(n);
@@ -27,46 +25,55 @@ const CryptoItemList = (props: {
     if (n >= 1e12) return +(n / 1e12).toFixed(2) + "T";
   };
 
-  const isPositive = Number(props.crypto.changePercent24Hr) > 0;
+  const isPositive = Number(crypto.changePercent24Hr) > 0;
 
   const isFire =
-    Number(props.crypto.changePercent24Hr) > 7 ||
-    Number(props.crypto.rank) <= 3;
+    Number(crypto.changePercent24Hr) > 7 || Number(crypto.rank) <= 3;
 
   return (
     <div className="grid grid-cols-11 px-3 py-2 text-sm xs:text-p">
-      <div className="col-span-3 w-full grid grid-cols-subgrid items-center gap-2">
-        <div className="col-span-1 flex items-center gap-3">
-          <h3 className="text-slate-400">{props.crypto.rank}</h3>
-          <div className="bg-violet-400 w-4 sm:w-6 h-4 sm:h-6 rounded-full"></div>
+      <div className="col-span-4 xs:col-span-3 w-full grid grid-cols-subgrid items-center gap-0 xs:gap-2">
+        <div className="col-span-2 xs:col-span-1 flex items-center gap-3">
+          <h3 className="text-slate-400">{crypto.rank}</h3>
+          <div className="w-4 sm:w-6 h-4 sm:h-6 rounded-full">
+            <Image
+              src={`https://assets.coincap.io/assets/icons/${crypto.symbol.toLowerCase()}@2x.png`}
+              alt={`${crypto.name} icon`}
+              width={24}
+              height={24}
+            />
+          </div>
         </div>
         <div className="col-span-2">
-          <CLink href={`/details/${props.crypto.name.toLowerCase()}`}>
-            <h3>{props.crypto.name}</h3>
+          <CLink
+            href={`/details/${crypto.name.toLowerCase()}`}
+            className="w-fit block"
+          >
+            <h3 className="w-fit">{crypto.name}</h3>
           </CLink>
           <div className="flex items-center">
-            <h4 className="mr-1 text-slate-400">{props.crypto.symbol}</h4>
+            <h4 className="mr-1 text-slate-400">{crypto.symbol}</h4>
             {isFire ? <PiFire className="text-violet-500" /> : null}
           </div>
         </div>
       </div>
 
-      <div className="col-span-5 xs:col-span-6 w-full grid grid-cols-subgrid items-center">
-        <p className="col-span-3 xs:col-span-2 text-center">
-          ${formatNumber(props.crypto.priceUsd)}
-        </p>
-        <p className="col-span-2 xs:col-span-2 text-center">
-          {formatNumber(props.crypto.supply)}
+      <div className="col-span-4 xs:col-span-6 w-full grid grid-cols-subgrid items-center">
+        <p className="col-span-4 xs:col-span-2 text-center">
+          ${formatNumber(crypto.priceUsd)}
         </p>
         <p className="xs:col-span-2 text-center hidden xs:block">
-          ${formatNumber(props.crypto.vwap24Hr)}
+          {formatNumber(crypto.supply)}
+        </p>
+        <p className="xs:col-span-2 text-center hidden xs:block">
+          ${formatNumber(crypto.vwap24Hr)}
         </p>
       </div>
 
       <div className="col-span-3 xs:col-span-2 flex items-center justify-end gap-3">
         <h4 className={isPositive ? "text-success" : "text-danger"}>
           {isPositive ? "+" : null}
-          {Number(props.crypto.changePercent24Hr).toFixed(2)}%
+          {Number(crypto.changePercent24Hr).toFixed(2)}%
         </h4>
         {isSaved ? (
           <button onClick={() => setIsSaved((curr) => !curr)}>

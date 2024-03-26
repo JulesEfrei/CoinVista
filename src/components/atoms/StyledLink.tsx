@@ -1,6 +1,7 @@
 import { cva } from "class-variance-authority";
 import Link, { LinkProps } from "next/link";
 import { ReactNode } from "react";
+import CLink from "./CLink";
 
 interface Props extends LinkProps {
   intent?: /*"primary" | "secondary" |*/
@@ -25,7 +26,7 @@ const StyledLink = (props: Props) => {
           danger:
             "text-white bg-red-400 hover:bg-danger dark:text-white dark dark:bg-danger dark:hover:bg-red-800",
           underline: "text-black hover:underline dark:text-white",
-          disabled: "text-slate-400 bg-slate-200",
+          disabled: "text-slate-400 bg-slate-200 cursor-default",
         },
         size: {
           sm: "px-3 text-sm",
@@ -48,7 +49,7 @@ const StyledLink = (props: Props) => {
   );
 
   return (
-    <Link
+    <CLink
       {...props}
       className={linkClasses({
         intent: props.intent,
@@ -57,7 +58,7 @@ const StyledLink = (props: Props) => {
       })}
     >
       {props.children}
-    </Link>
+    </CLink>
   );
 };
 

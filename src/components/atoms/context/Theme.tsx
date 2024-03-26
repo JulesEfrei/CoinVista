@@ -40,7 +40,7 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
   return (
     <ThemeContext.Provider value={{ currTheme, switchTheme }}>
       <body
-        className={`${inter.className} ${currTheme} w-screen min-h-screen dark:text-white dark:bg-black`}
+        className={`${inter.className} ${currTheme} w-screen min-h-dvh h-dvh dark:text-white dark:bg-black`}
       >
         {children}
       </body>

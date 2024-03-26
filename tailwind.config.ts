@@ -41,22 +41,10 @@ const config: Config = {
       },
     },
     fontSize: {
-      h1: [
-        "48px",
-        { lineHeight: "48px", letterSpacing: "-1.2em", fontWeight: "900" },
-      ],
-      h2: [
-        "30px",
-        { lineHeight: "36px", letterSpacing: "-0.75em", fontWeight: "600" },
-      ],
-      h3: [
-        "24px",
-        { lineHeight: "32px", letterSpacing: "-0.6em", fontWeight: "600" },
-      ],
-      h4: [
-        "20px",
-        { lineHeight: "28px", letterSpacing: "-0.5em", fontWeight: "600" },
-      ],
+      h1: ["48px", { lineHeight: "48px", fontWeight: "900" }],
+      h2: ["30px", { lineHeight: "36px", fontWeight: "600" }],
+      h3: ["24px", { lineHeight: "32px", fontWeight: "600" }],
+      h4: ["20px", { lineHeight: "28px", fontWeight: "600" }],
       p: ["16px", { lineHeight: "28px", fontWeight: "400" }],
       lead: ["20px", { lineHeight: "28px", fontWeight: "400" }],
       sm: ["14px", { lineHeight: "14px" }],

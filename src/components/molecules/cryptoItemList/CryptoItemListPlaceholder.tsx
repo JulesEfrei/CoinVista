@@ -1,12 +1,12 @@
 const CryptoItemListPlaceholder = () => {
   return (
     <div className="grid grid-cols-11 px-3 py-2 text-sm xs:text-p animate-pulse">
-      <div className="col-span-3 w-full grid grid-cols-subgrid items-center gap-2">
-        <div className="col-span-1 flex items-center gap-3">
+      <div className="col-span-3 w-full h-full grid grid-cols-subgrid items-center gap-2">
+        <div className="col-span-1 flex items-center gap-3 h-full">
           <h3 className="text-slate-400 bg-gray-500 h-full rounded-md w-1/2"></h3>
           <div className="bg-gray-500 w-4 sm:w-6 h-4 sm:h-6 rounded-full"></div>
         </div>
-        <div className="col-span-2 w-full">
+        <div className="col-span-2 w-full h-full">
           <h3 className="bg-gray-500 h-full rounded-md w-1/2"></h3>
           <div className="flex items-center">
             <h4 className="mr-1 text-slate-400 bg-gray-500 h-full rounded-md w-1/2"></h4>

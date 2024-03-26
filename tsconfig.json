@@ -23,7 +23,8 @@
       "@molecules/*": ["components/molecules/*"],
       "@organisms/*": ["components/organisms/*"],
       "@types/*": ["type/*"],
-      "@translation/*": ["translation/*"]
+      "@translation/*": ["translation/*"],
+      "@utils/*": ["utils/*"]
     }
   },
   "include": [
