@@ -1,10 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import Button from "@atoms/Button";
 import Input from "@atoms/Input";
+import Button from "@atoms/Button";
 
-const ConnectForm = ({ inputType, inputLabel, onSubmit, errorMessage, buttonText }) => {
+const ConnectForm = ({ inputType, inputLabel, buttonText, onSuccess }) => {
   const [inputValue, setInputValue] = useState("");
+  const [error, setError] = useState("");
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
@@ -12,7 +13,13 @@ const ConnectForm = ({ inputType, inputLabel, onSubmit, errorMessage, buttonText
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    onSubmit(inputValue, event);
+    if (inputValue.trim() === "") {
+      setError("Please enter a value.");
+    } else {
+      onSuccess(inputValue);
+      setInputValue("");
+      setError("");
+    }
   };
 
   return (
@@ -21,14 +28,13 @@ const ConnectForm = ({ inputType, inputLabel, onSubmit, errorMessage, buttonText
         <div className="flex flex-col gap-1">
           <label htmlFor="inputField">{inputLabel}</label>
           <Input
-            value={inputValue}
             type={inputType}
             onChange={handleInputChange}
             placeholder={inputLabel}
             id="inputField"
           />
-          {errorMessage && (
-            <p className="text-red-500">{errorMessage}</p>
+          {error && (
+            <p className="text-red-500">{error}</p>
           )}
           <div className="flex justify-center mt-3">
             <Button type="submit">{buttonText}</Button>
