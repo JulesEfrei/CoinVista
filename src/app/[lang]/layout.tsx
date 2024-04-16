@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navigation from "@molecules/Navigation";
-import ThemeProvider from "../../utils/Theme";
+import ThemeProvider from "@atoms/context/Theme";
 
 export const metadata: Metadata = {
   title: "Home - Dashboard",
