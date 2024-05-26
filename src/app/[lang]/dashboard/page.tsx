@@ -29,7 +29,7 @@ export default async function Home({
     const uniqueMap = new Map<string, assetResponse>();
 
     savedData.data.forEach((item) => {
-      if (Number(searchParams.page) === 1) {
+      if (searchParams.page === undefined || Number(searchParams.page) === 1) {
         uniqueMap.set(item.id, { ...item, isSaved: true });
       }
     });

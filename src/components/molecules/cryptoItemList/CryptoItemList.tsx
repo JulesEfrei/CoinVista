@@ -2,6 +2,7 @@
 
 import CLink from "@atoms/CLink";
 import { assetResponse } from "@type/api/assets";
+import { formatNumber, isFire, isPositive } from "@utils/assetsUtils";
 import Image from "next/image";
 import { useState } from "react";
 import {
@@ -12,23 +13,6 @@ import {
 
 const CryptoItemList = ({ crypto }: { crypto: assetResponse }) => {
   const [isSaved, setIsSaved] = useState(crypto.isSaved);
-
-  const formatNumber = (n) => {
-    n = Number(n);
-    if (n < 1e3) return Number(n).toPrecision(4);
-    if (n >= 1e3 && n < 1e6) {
-      const e = (n / 1e3).toString().split(".");
-      return e[0] + " " + e[1].slice(0, 3) + "," + e[1].slice(3, 5);
-    }
-    if (n >= 1e6 && n < 1e9) return +(n / 1e6).toFixed(2) + "M";
-    if (n >= 1e9 && n < 1e12) return +(n / 1e9).toFixed(2) + "B";
-    if (n >= 1e12) return +(n / 1e12).toFixed(2) + "T";
-  };
-
-  const isPositive = Number(crypto.changePercent24Hr) > 0;
-
-  const isFire =
-    Number(crypto.changePercent24Hr) > 7 || Number(crypto.rank) <= 3;
 
   return (
     <div className="grid grid-cols-11 px-3 py-2 text-sm xs:text-p">
@@ -53,7 +37,9 @@ const CryptoItemList = ({ crypto }: { crypto: assetResponse }) => {
           </CLink>
           <div className="flex items-center">
             <h4 className="mr-1 text-slate-400">{crypto.symbol}</h4>
-            {isFire ? <PiFire className="text-violet-500" /> : null}
+            {isFire(crypto.changePercent24Hr, crypto.rank) ? (
+              <PiFire className="text-violet-500" />
+            ) : null}
           </div>
         </div>
       </div>
@@ -71,8 +57,14 @@ const CryptoItemList = ({ crypto }: { crypto: assetResponse }) => {
       </div>
 
       <div className="col-span-3 xs:col-span-2 flex items-center justify-end gap-3">
-        <h4 className={isPositive ? "text-success" : "text-danger"}>
-          {isPositive ? "+" : null}
+        <h4
+          className={
+            isPositive(crypto.changePercent24Hr)
+              ? "text-success"
+              : "text-danger"
+          }
+        >
+          {isPositive(crypto.changePercent24Hr) ? "+" : null}
           {Number(crypto.changePercent24Hr).toFixed(2)}%
         </h4>
         {isSaved ? (
