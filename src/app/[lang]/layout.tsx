@@ -18,8 +18,8 @@ export default function RootLayout({
   return (
     <html lang={params.lang.split("-")[0] || "en"}>
       <ThemeProvider>
-        <main>{children}</main>
-        <Navigation />
+        <main className="h-full w-full p-2 sm:p-5 relative">{children}</main>
+        <Navigation lang={params.lang.split("-")[0] || "en"} />
       </ThemeProvider>
     </html>
   );

@@ -1,5 +1,7 @@
+"use client";
+
 import { cva } from "class-variance-authority";
-import { MouseEventHandler, ReactNode } from "react";
+import { ReactNode } from "react";
 
 interface Props {
   type?: "submit" | "button";
@@ -20,8 +22,10 @@ const Button = (props: Props) => {
       "flex",
       "items-center",
       "font-medium",
-      "gap-2",
+      "xs:gap-2",
       "shadow-sm",
+      "xs:text-p",
+      "text-sm",
     ],
     {
       variants: {
