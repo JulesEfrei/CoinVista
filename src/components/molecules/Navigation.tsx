@@ -30,7 +30,7 @@ async function Navigation({ lang }) {
             </li>
             <li className="h-full">
               <CLink
-                href={isConnected ? "/profile" : "/login"}
+                href={isConnected ? "/profile" : "/auth/sign-in"}
                 className="border-1 border-gray-500 text-white py-2 px-3 rounded-md flex items-center h-full hover:border-white"
               >
                 {isConnected

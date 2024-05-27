@@ -6,6 +6,7 @@ import {
   assetResponse,
   assetsResponse,
 } from "@type/api/assets";
+import { createClient } from "@utils/supabase/server";
 
 export default async function Home({
   params,
@@ -45,14 +46,18 @@ export default async function Home({
     return mergedData;
   }
 
-  const data = mergeAndMarkSaved(savedCrypto, apiAssets);
+  const dataList = mergeAndMarkSaved(savedCrypto, apiAssets);
+
+  const supabase = createClient();
+  const { data, error } = await supabase.auth.getUser();
 
   return (
     <>
       <section className="bg-violet-600 w-full h-1/2"></section>
       <section className="mt-10 lg:px-20">
+        {data.user ? <h1>{data.user.email}</h1> : null}
         <AssetsList
-          list={data}
+          list={dataList}
           page={Number(searchParams.page) || 1}
           translation={translation}
         />

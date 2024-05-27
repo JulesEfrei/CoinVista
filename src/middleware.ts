@@ -1,3 +1,5 @@
+import { updateSession } from "@utils/supabase/middleware";
+import { NextURL } from "next/dist/server/web/next-url";
 import { NextRequest, NextResponse } from "next/server";
 
 let locales = ["en", "en-US", "en-UK", "fr", "fr-FR"];
@@ -26,8 +28,11 @@ export function middleware(request: NextRequest) {
   const parsedPathname = pathname.split("/");
   parsedPathname[1] = parsedPathname[1].replace(localesRegex, "");
 
-  request.nextUrl.pathname = `/${locale}${parsedPathname.join("/")}`;
-  return NextResponse.redirect(request.nextUrl);
+  // request.nextUrl.pathname = `/${locale}${parsedPathname.join("/")}`;
+  const redirectUrl = `/${locale}${parsedPathname.join("/")}`;
+  // return NextResponse.redirect(request.nextUrl);
+
+  return updateSession(request, redirectUrl);
 }
 
 export const config = {

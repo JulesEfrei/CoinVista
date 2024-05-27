@@ -54,6 +54,7 @@ const Input = (props: InputProps) => {
       id={props.id ?? ""}
       name={props.name ?? ""}
       title={props.helperMsg}
+      value={props.value}
     />
   );
 };

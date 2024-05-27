@@ -5,7 +5,7 @@ import { ReactNode } from "react";
 
 interface Props {
   type?: "submit" | "button";
-  onClick: () => void;
+  onClick?: () => void;
   children: ReactNode;
   disabled?: boolean;
   intent?: /*"primary" | "secondary" |*/
