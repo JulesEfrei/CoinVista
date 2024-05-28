@@ -1,11 +1,13 @@
 import CLink from "@atoms/CLink";
 import ThemeSwitcher from "@atoms/ThemeSwitcher";
+import { createClient } from "@utils/supabase/server";
 import { getTranslation } from "app/[lang]/translation";
 
 async function Navigation({ lang }) {
-  const isConnected = false;
-
   const translation = await getTranslation(lang);
+
+  const supabase = createClient();
+  const { data } = await supabase.auth.getUser();
 
   return (
     <>
@@ -30,10 +32,10 @@ async function Navigation({ lang }) {
             </li>
             <li className="h-full">
               <CLink
-                href={isConnected ? "/profile" : "/auth/sign-in"}
+                href={data.user ? "/profile" : "/auth/sign-in"}
                 className="border-1 border-gray-500 text-white py-2 px-3 rounded-md flex items-center h-full hover:border-white"
               >
-                {isConnected
+                {data.user
                   ? translation.navigation.profile
                   : translation.navigation.login}
               </CLink>

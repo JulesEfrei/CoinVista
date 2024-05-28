@@ -15,11 +15,12 @@ export async function sendOTP(formData: FormData) {
   const { error } = await supabase.auth.signInWithOtp(data);
 
   if (error) {
-    redirect("/auth/sign-in?error=true");
+    console.log(error);
+    redirect("sign-in?error=true");
   }
 
   revalidatePath("/auth", "layout");
-  redirect("/auth/verification?email=" + data.email);
+  redirect("verification?email=" + data.email);
 }
 
 export async function verifyOTP(formData: FormData) {
@@ -41,5 +42,21 @@ export async function verifyOTP(formData: FormData) {
   }
 
   revalidatePath("/", "layout");
-  redirect("/en-US/dashboard");
+  redirect("/");
+}
+
+export async function logout(formData: FormData) {
+  const supabase = createClient();
+
+  const { error } = await supabase.auth.signOut();
+  redirect("/");
+}
+
+export async function removeAccount(formData: FormData) {
+  const supabase = createClient();
+
+  const { error } = await supabase.auth.admin.deleteUser(
+    formData.get("id") as string
+  );
+  redirect("/");
 }

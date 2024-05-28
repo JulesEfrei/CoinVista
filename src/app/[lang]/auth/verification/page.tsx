@@ -15,14 +15,22 @@ const VerificationPage = () => {
 
   return (
     <>
-      <ToastContainer />
-      <AuthForm
-        formAction={verifyOTP}
-        fields={[
-          { label: "Email", name: "email", value: email },
-          { label: "Code OTP", name: "code" },
-        ]}
-      />
+      <div className="flex flex-col items-center gap-36 pt-14">
+        <div>
+          <h1 className="text-h1">Welcome to Coinvista</h1>
+          <p className="text-lead mt-4">
+            Check your mail inbox and enter the code
+          </p>
+        </div>
+        <AuthForm
+          formAction={verifyOTP}
+          fields={[
+            { label: "Email", name: "email", value: email, type: "hidden" },
+            { label: "Code OTP", name: "code" },
+          ]}
+          submitValue="Verify"
+        />
+      </div>
     </>
   );
 };

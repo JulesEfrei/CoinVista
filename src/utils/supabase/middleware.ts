@@ -1,17 +1,13 @@
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
-import { NextURL } from "next/dist/server/web/next-url";
 import { NextResponse, type NextRequest } from "next/server";
 
-export async function updateSession(request: NextRequest, redirect: string) {
-  let response = NextResponse.next({
-    request: {
-      headers: request.headers,
-    },
-  });
-
+export async function updateSession(
+  request: NextRequest,
+  response: NextResponse
+) {
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     {
       cookies: {
         get(name: string) {
@@ -57,19 +53,5 @@ export async function updateSession(request: NextRequest, redirect: string) {
 
   await supabase.auth.getUser();
 
-  //   return response;
-
-  const redirectUrl = request.nextUrl.clone();
-  redirectUrl.pathname = redirect;
-
-  return NextResponse.redirect(redirectUrl);
+  return response;
 }
-
-/*
-if (!nextUrl.pathname.startsWith(`/${locale}`)) {
-    const url = nextUrl.clone()
-    url.pathname = `/${locale}${nextUrl.pathname}`
-    return NextResponse.redirect(url)
-  }
-
-*/
