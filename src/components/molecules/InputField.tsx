@@ -42,13 +42,18 @@ const InputField = (props: InputFieldProps) => {
 
   return (
     <div className="flex flex-col w-fit">
-      <label
-        htmlFor={props.name}
-        id={props.id ? props.id + "-label" : ""}
-        className={labelClasses({ disabled: props.disabled, size: props.size })}
-      >
-        {props.title}
-      </label>
+      {props.type !== "hidden" ? (
+        <label
+          htmlFor={props.name}
+          id={props.id ? props.id + "-label" : ""}
+          className={labelClasses({
+            disabled: props.disabled,
+            size: props.size,
+          })}
+        >
+          {props.title}
+        </label>
+      ) : null}
       <Input
         type={props.type}
         placeholder={props.placeholder}
@@ -59,6 +64,7 @@ const InputField = (props: InputFieldProps) => {
         fullWidth={props.fullWidth}
         size={props.size}
         helperMsg={props.helperMsg}
+        value={props.value}
       />
       {props.subtitle ? (
         <span

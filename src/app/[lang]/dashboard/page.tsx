@@ -45,14 +45,14 @@ export default async function Home({
     return mergedData;
   }
 
-  const data = mergeAndMarkSaved(savedCrypto, apiAssets);
+  const dataList = mergeAndMarkSaved(savedCrypto, apiAssets);
 
   return (
     <>
       <section className="bg-violet-600 w-full h-1/2"></section>
       <section className="mt-10 lg:px-20">
         <AssetsList
-          list={data}
+          list={dataList}
           page={Number(searchParams.page) || 1}
           translation={translation}
         />
