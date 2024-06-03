@@ -1,6 +1,6 @@
 import Button from "@atoms/Button";
-import type { apiAssetResponse } from "@customTypes/api/assets";
-import { fetchAsset } from "@utils/api/assets";
+import type { apiAssetResponse, apiMarkets } from "@customTypes/api/assets";
+import { fetchAsset, fetchExchange } from "@utils/api/assets";
 import { formatNumber, isFire, isPositive } from "@utils/assetsUtils";
 import Image from "next/image";
 import { PiFire } from "react-icons/pi";
@@ -17,6 +17,8 @@ const Page = async ({ params }: { params: { lang: string; id: string } }) => {
   );
   const cryptoDetails: apiAssetResponse = await fetchAsset(params.id);
 
+  const markets: apiMarkets = await fetchExchange(params.id);
+
   const rankSpanClasses = cva(["px-3", "py-1", "rounded-md"], {
     variants: {
       bg: {
@@ -25,6 +27,10 @@ const Page = async ({ params }: { params: { lang: string; id: string } }) => {
       },
     },
   });
+
+  if (cryptoDetails === undefined || cryptoDetails.error) {
+    throw Error("Not Found");
+  }
 
   return (
     <>
@@ -76,7 +82,9 @@ const Page = async ({ params }: { params: { lang: string; id: string } }) => {
             <h4>
               {translation.cryptoField.bestExchange}{" "}
               <span className="px-3 py-1 bg-gray-500 bg-opacity-50 rounded-md">
-                Binance
+                {markets !== undefined && !markets.error
+                  ? markets.data[0].exchangeId
+                  : "N/A"}
               </span>
             </h4>
             <h1 className="text-h4">

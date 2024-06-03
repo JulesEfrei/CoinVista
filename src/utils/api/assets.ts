@@ -1,3 +1,5 @@
+import { apiMarkets } from "@customTypes/api/assets";
+
 const NB_CRYPTO = 2296; //Manually set
 const LIMIT = 10;
 
@@ -43,6 +45,17 @@ export const fetchAsset: (cryptoId: string) => any = async (cryptoId) => {
   const data = await fetch(`http://api.coincap.io/v2/assets/${cryptoId}`, {
     cache: "force-cache",
   });
+
+  return data.json();
+};
+
+export const fetchExchange: (cryptoId: string) => any = async (cryptoId) => {
+  const data = await fetch(
+    `http://api.coincap.io/v2/assets/${cryptoId}/markets`,
+    {
+      cache: "force-cache",
+    }
+  );
 
   return data.json();
 };
