@@ -1,7 +1,7 @@
 "use client";
 
 import Button from "@atoms/Button";
-import SimpleAreaChart from "@atoms/SimpleChart";
+import AreaChart from "@atoms/AreaChart";
 import { apiAssetHistory, intervalDate } from "@type/api/assets";
 import { useMemo, useState } from "react";
 import useSWR, { Fetcher } from "swr";
@@ -134,24 +134,30 @@ const AssetHistory = ({
             <div>An error occured</div>
           ) : (
             <div className="xs:max-h-[450px] h-[300px] xs:h-auto flex justify-center">
-              <SimpleAreaChart
-                title={`${cryptoId[0].toUpperCase()}${cryptoId.slice(
-                  1
-                )} price (USD)`}
-                data={filterDataByInterval().map((elm) => elm.priceUsd)}
+              <AreaChart
+                title={[
+                  `${cryptoId[0].toUpperCase()}${cryptoId.slice(
+                    1
+                  )} price (USD)`,
+                ]}
+                data={[filterDataByInterval().map((elm) => elm.priceUsd)]}
                 labels={filterDataByInterval().map((elm) => {
                   return new Date(elm.time).toDateString();
                 })}
                 color={
                   isPositive
-                    ? {
-                        color: "#22c55e",
-                        backgroundColor: "rgba(34, 197, 94, .5)",
-                      }
-                    : {
-                        color: "#dc2626",
-                        backgroundColor: "rgba(220, 38, 38, .5)",
-                      }
+                    ? [
+                        {
+                          color: "#22c55e",
+                          backgroundColor: "rgba(34, 197, 94, .5)",
+                        },
+                      ]
+                    : [
+                        {
+                          color: "#dc2626",
+                          backgroundColor: "rgba(220, 38, 38, .5)",
+                        },
+                      ]
                 }
               />
             </div>
