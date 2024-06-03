@@ -30,7 +30,7 @@ const CryptoItemList = ({ crypto }: { crypto: assetResponse }) => {
         </div>
         <div className="col-span-2">
           <CLink
-            href={`/details/${crypto.name.toLowerCase()}`}
+            href={`/details/${crypto.id.toLowerCase()}`}
             className="w-fit block"
           >
             <h3 className="w-fit">{crypto.name}</h3>

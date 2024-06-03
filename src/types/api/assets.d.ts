@@ -19,11 +19,13 @@ export interface assetResponse extends apiDataAssetResponse {
 export type apiAssetsResponse = {
   data: apiDataAssetResponse[];
   timestamp: string;
+  error?: unknown;
 };
 
 export interface apiAssetResponse {
   data: apiDataAssetResponse;
   timestamp: string;
+  error?: unknown;
 }
 
 export type assetsResponse = assetResponse[];
@@ -46,6 +48,23 @@ export interface apiAssetHistory {
     priceUsd: string;
     time: Date;
   }[];
+  timestamp: string;
+  error?: unknown;
+}
+
+export interface apiMarketResult {
+  exchangeId: string;
+  baseId: string;
+  quoteId: string;
+  baseSymbol: string;
+  quoteSymbol: string;
+  volumeUsd24Hr: string;
+  priceUsd: string;
+  volumePercent: string;
+}
+
+export interface apiMarkets {
+  data: apiMarketResult[];
   timestamp: string;
   error?: unknown;
 }
