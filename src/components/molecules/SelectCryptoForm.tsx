@@ -1,20 +1,25 @@
 "use client";
 import Button from "@atoms/Button";
-import { apiDataAssetResponse } from "@type/api/assets";
+import type { apiDataAssetResponse } from "@customTypes/api/assets";
+import type { translation } from "@customTypes/translationType";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 
 export default function SelectCryptoForm({
   defaultValues,
   cryptoList,
+  translation,
 }: {
-  defaultValues: string[];
+  defaultValues: string[] | null;
   cryptoList: apiDataAssetResponse[];
+  translation: translation;
 }) {
   const router = useRouter();
 
   const [nChoice, setNChoice] = useState<number>(
-    defaultValues.length <= 2
+    defaultValues === null
+      ? 2
+      : defaultValues.length <= 2
       ? 2
       : defaultValues.length >= 4
       ? 4
@@ -29,9 +34,15 @@ export default function SelectCryptoForm({
   const refIndex = [cryptoOne, cryptoTwo, cryptoThree, cryptoFour];
 
   const redirect = () => {
-    const ids = Array(nChoice)
+    const ids = Array(
+      refIndex.reduce((prev, curr) => {
+        return curr.current !== null && curr.current?.value !== ""
+          ? prev + 1
+          : prev;
+      }, 0)
+    )
       .fill(null)
-      .map((elm, index) => "ids=" + refIndex[index].current.value)
+      .map((elm, index) => "ids=" + refIndex[index].current?.value)
       .join("&");
 
     router.push("compare?" + ids);
@@ -39,7 +50,9 @@ export default function SelectCryptoForm({
 
   return (
     <div className="p-5 flex flex-col h-full gap-5">
-      <h2 className="text-lead font-bold">Select crypto</h2>
+      <h2 className="text-lead font-bold">
+        {translation.selectCryptoForm.selectTitle}
+      </h2>
       <form className="flex flex-col gap-10 items-center justify-center h-full">
         {Array(nChoice)
           .fill(null)
@@ -54,12 +67,16 @@ export default function SelectCryptoForm({
                   "py-1 px-2 border rounded-md border-slate-500 bg-white text-black focus:border-slate-700 focus:border-2 dark:bg-black dark:text-white placeholder:text-gray-500 dark:border-gray-500"
                 }
               >
-                <option value="">Aucun</option>
+                <option value="">{translation.selectCryptoForm.none}</option>
                 {cryptoList
                   ? cryptoList.map((elm, i) => (
                       <option
                         value={elm.id}
-                        selected={elm.id === defaultValues[index]}
+                        selected={
+                          defaultValues === null
+                            ? false
+                            : elm.id === defaultValues[index]
+                        }
                         key={`${elm.id}-${i}`}
                       >
                         {elm.name}
@@ -75,17 +92,19 @@ export default function SelectCryptoForm({
             onClick={() => setNChoice((curr) => curr - 1)}
             size="sm"
           >
-            Remove field
+            {translation.selectCryptoForm.removeField}
           </Button>
           <Button
             disabled={nChoice === 4}
             onClick={() => setNChoice((curr) => curr + 1)}
             size="md"
           >
-            Add field
+            {translation.selectCryptoForm.addField}
           </Button>
         </div>
-        <Button onClick={redirect}>Load</Button>
+        <Button onClick={redirect}>
+          {translation.selectCryptoForm.submitTitle}
+        </Button>
       </form>
     </div>
   );

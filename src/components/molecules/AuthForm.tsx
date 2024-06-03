@@ -1,11 +1,11 @@
 import Input from "@atoms/Input";
 import Button from "@atoms/Button";
-import { formField } from "@type/AuthFormType";
+import type { formField } from "@customTypes/AuthFormType";
 import InputField from "./InputField";
 
 interface Props {
   fields: formField[];
-  formAction: (FormData) => void;
+  formAction: (arg: FormData) => void;
   submitValue?: string;
 }
 

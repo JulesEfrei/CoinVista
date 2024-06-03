@@ -1,8 +1,13 @@
+import { Metadata } from "next";
 import { ReactNode } from "react";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { getTranslation } from "../translation";
 
-export default function Layout({ children }: { children: ReactNode }) {
+export const metadata: Metadata = {
+  title: "CoinVista - Login",
+  applicationName: "CoinVista",
+};
+
+export default async function Layout({ children }: { children: ReactNode }) {
   return (
     <>
       <section>{children}</section>

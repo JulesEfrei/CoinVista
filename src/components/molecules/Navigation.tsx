@@ -3,7 +3,7 @@ import ThemeSwitcher from "@atoms/ThemeSwitcher";
 import { createClient } from "@utils/supabase/server";
 import { getTranslation } from "app/[lang]/translation";
 
-async function Navigation({ lang }) {
+async function Navigation({ lang }: { lang: string }) {
   const translation = await getTranslation(lang);
 
   const supabase = createClient();

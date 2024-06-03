@@ -5,6 +5,13 @@ export async function updateSession(
   request: NextRequest,
   response: NextResponse
 ) {
+  if (
+    process.env.NEXT_PUBLIC_SUPABASE_URL === undefined ||
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY === undefined
+  ) {
+    throw new Error(".env variables missing");
+  }
+
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,

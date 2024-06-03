@@ -1,5 +1,5 @@
 import Input from "@atoms/Input";
-import { InputProps } from "@type/propsType";
+import type { InputProps } from "@customTypes/propsType";
 import { cva } from "class-variance-authority";
 
 interface InputFieldProps extends InputProps {

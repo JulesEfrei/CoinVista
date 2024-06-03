@@ -1,11 +1,18 @@
-import { assetResponse } from "@type/api/assets";
+import type { assetResponse } from "@customTypes/api/assets";
 import { formatNumber, isFire, isPositive } from "@utils/assetsUtils";
 import Image from "next/image";
 import { PiFire } from "react-icons/pi";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import { FaArrowTrendDown } from "react-icons/fa6";
+import type { translation } from "@customTypes/translationType";
 
-export default function CryptoCard({ crypto }: { crypto: assetResponse }) {
+export default function CryptoCard({
+  crypto,
+  translation,
+}: {
+  crypto: assetResponse;
+  translation: translation;
+}) {
   return (
     <div className="border-1 border-black dark:border-gray-500 rounded-md p-3">
       <div className="flex gap-3 items-center w-full relative">
@@ -34,19 +41,25 @@ export default function CryptoCard({ crypto }: { crypto: assetResponse }) {
       </div>
       <div className="mt-3 flex items-center flex-wrap justify-between">
         <div className="flex flex-col gap-2">
-          <p className="text-sm font-semibold">Price USD</p>
+          <p className="text-sm font-semibold">
+            {translation.cryptoField.priceUsd}
+          </p>
           <p className="text-lead text-slate-400 font-light">
             ${formatNumber(crypto.priceUsd)}
           </p>
         </div>
         <div className="flex flex-col gap-2">
-          <p className="text-sm font-semibold">Supply</p>
+          <p className="text-sm font-semibold">
+            {translation.cryptoField.supply}
+          </p>
           <p className="text-lead text-slate-400 font-light">
             {formatNumber(crypto.supply)}
           </p>
         </div>
         <div className="flex flex-col gap-2">
-          <p className="text-sm font-semibold">Vwap 24h</p>
+          <p className="text-sm font-semibold">
+            {translation.cryptoField.vwap24Hr}
+          </p>
           <p className="text-lead text-slate-400 font-light">
             ${formatNumber(crypto.vwap24Hr)}
           </p>

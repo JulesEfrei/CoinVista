@@ -4,8 +4,8 @@ import Navigation from "@molecules/Navigation";
 import ThemeProvider from "@atoms/context/Theme";
 
 export const metadata: Metadata = {
-  title: "Home - Dashboard",
-  description: "",
+  title: "CoinVista - Dashboard",
+  applicationName: "CoinVista",
 };
 
 export default function RootLayout({
@@ -17,6 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang={params.lang.split("-")[0] || "en"}>
+      <head>
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+      </head>
       <ThemeProvider>
         <main className="h-full w-full p-2 sm:p-5 relative">{children}</main>
         <Navigation lang={params.lang.split("-")[0] || "en"} />

@@ -1,11 +1,12 @@
 import { getTranslation } from "../translation";
 import { fetchAssets, fetchSavedAssets } from "@utils/api/assets";
 import AssetsList from "@organisms/AssetsList";
-import {
+import type {
   apiAssetsResponse,
   assetResponse,
   assetsResponse,
-} from "@type/api/assets";
+} from "@customTypes/api/assets";
+import type { translation } from "@customTypes/translationType";
 
 export default async function Home({
   params,
@@ -14,7 +15,9 @@ export default async function Home({
   params: { lang: string };
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const translation = await getTranslation(params.lang.split("-")[0]);
+  const translation: translation = await getTranslation(
+    params.lang.split("-")[0]
+  );
 
   const apiAssets: apiAssetsResponse = await fetchAssets(
     Number(searchParams.page) || 1

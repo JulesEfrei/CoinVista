@@ -3,12 +3,23 @@ import CryptoCard from "@molecules/CryptoCard";
 import SelectCryptoForm from "@molecules/SelectCryptoForm";
 import { fetchAllAssets, fetchAssetHistory } from "@utils/api/assets";
 import React from "react";
+import { getTranslation } from "../translation";
+import type { translation } from "@customTypes/translationType";
+import {
+  apiAssetResponse,
+  apiDataAssetResponse,
+} from "@customTypes/api/assets";
 
 export default async function ComparePage({
+  params,
   searchParams,
 }: {
+  params: { lang: string };
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
+  const translation: translation = await getTranslation(
+    params.lang.split("-")[0]
+  );
   const cryptoList = await fetchAllAssets(100);
 
   const idsAsArray =
@@ -16,7 +27,7 @@ export default async function ComparePage({
       ? []
       : Array.isArray(searchParams.ids)
       ? searchParams.ids
-      : [searchParams.id];
+      : [searchParams.ids];
 
   const today = new Date();
   const endTime = today.getTime();
@@ -30,7 +41,7 @@ export default async function ComparePage({
   );
 
   const formatTitle = idsAsArray.map(
-    (elm) => `${elm[0].toUpperCase()}${elm.slice(1)} price (USD)`
+    (elm) => `${elm[0].toUpperCase()}${elm!.slice(1)} price (USD)`
   );
 
   const colors: { color: string; backgroundColor: string }[] = [
@@ -42,32 +53,38 @@ export default async function ComparePage({
 
   return (
     <>
-      <h1 className="text-h1">Compare page</h1>
+      <h1 className="text-h1">{translation.compare.title}</h1>
       <div className="flex sm:flex-row flex-col mt-10 gap-5 md:h-2/3 h-screen">
         <div className="border-1 border-slate-500 md:w-3/4 w-full min-h-96 xs:p-4 p-2 flex justify-center items-center gap-2 rounded-md">
           {idsAsArray.length > 0 ? (
             <AreaChart
               data={assetsHistory.map((assetHistory) =>
-                assetHistory.map((elm) => elm.priceUsd)
+                assetHistory.map((elm: { priceUsd: string; time: string }) =>
+                  Number(elm.priceUsd)
+                )
               )}
-              labels={assetsHistory[0].map((elm) =>
-                new Date(elm.time).toDateString()
+              labels={assetsHistory[0].map(
+                (elm: { priceUsd: string; time: string }) =>
+                  new Date(elm.time).toDateString()
               )}
               title={formatTitle}
               color={colors}
             />
           ) : (
-            <h2>Select crypto to show the graph</h2>
+            <h2>{translation.compare.empty}</h2>
           )}
         </div>
         <div className="md:w-1/4 border-1 border-slate-500 rounded-md">
           <SelectCryptoForm
             defaultValues={
-              Array.isArray(searchParams.ids)
+              searchParams.ids === undefined
+                ? null
+                : Array.isArray(searchParams.ids)
                 ? searchParams.ids
                 : [searchParams.ids]
             }
             cryptoList={cryptoList.data}
+            translation={translation}
           />
         </div>
       </div>
@@ -76,8 +93,12 @@ export default async function ComparePage({
           ? idsAsArray.map((elm, index) => (
               <CryptoCard
                 crypto={
-                  cryptoList.data.filter((crypto) => crypto.id === elm)[0]
+                  cryptoList.data.filter(
+                    (crypto: apiDataAssetResponse) => crypto.id === elm
+                  )[0]
                 }
+                translation={translation}
+                key={`${elm}-${index}`}
               />
             ))
           : null}

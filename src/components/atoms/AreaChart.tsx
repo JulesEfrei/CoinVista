@@ -10,6 +10,9 @@ import {
   Tooltip,
   Legend,
   Filler,
+  ChartOptions,
+  DefaultDataPoint,
+  ChartDataset,
 } from "chart.js";
 
 ChartJS.register(
@@ -24,7 +27,7 @@ ChartJS.register(
 );
 
 const AreaChart = (props: {
-  data: number[][] | string[][];
+  data: number[][];
   labels: string[];
   title: string[];
   color?: {
@@ -33,31 +36,28 @@ const AreaChart = (props: {
   }[];
 }) => {
   const labels = props.labels;
-  const datasets = props.data.reduce((prev, curr, index) => {
-    return [
-      ...prev,
-      {
+
+  const datasets: ChartDataset<"line", DefaultDataPoint<"line">>[] =
+    props.data.map((elm, index) => {
+      return {
         label: props.title[index],
-        data: curr,
+        data: elm,
         borderColor: (props.color && props.color[index].color) || "#F7931E",
         backgroundColor:
           (props.color && props.color[index].backgroundColor) ||
           "rgba(255, 149, 30, 0.2)",
         fill: true,
         pointStyle: "rectRot",
-      },
-    ];
-  }, []);
+      };
+    }, []);
 
-  const options = {
+  const options: ChartOptions<"line"> = {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
       legend: { position: "top" },
     },
   };
-
-  console.log(datasets);
 
   return (
     <Line options={options} data={{ labels, datasets }} className="xs:w-5/6" />

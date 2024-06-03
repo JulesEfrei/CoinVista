@@ -1,4 +1,4 @@
-export const formatNumber = (n) => {
+export const formatNumber = (n: string | number) => {
   n = Number(n);
   if (n < 1e3) return Number(n).toPrecision(4);
   if (n >= 1e3 && n < 1e6) {
@@ -10,7 +10,7 @@ export const formatNumber = (n) => {
   if (n >= 1e12) return +(n / 1e12).toFixed(2) + "T";
 };
 
-export const isPositive = (n) => Number(n) > 0;
+export const isPositive = (n: string | number) => Number(n) > 0;
 
-export const isFire = (changePercent24Hr, rank) =>
+export const isFire = (changePercent24Hr: string, rank: string) =>
   Number(changePercent24Hr) > 7 || Number(rank) <= 3;

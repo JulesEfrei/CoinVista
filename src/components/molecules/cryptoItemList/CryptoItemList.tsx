@@ -1,7 +1,7 @@
 "use client";
 
 import CLink from "@atoms/CLink";
-import { assetResponse } from "@type/api/assets";
+import type { assetResponse } from "@customTypes/api/assets";
 import { formatNumber, isFire, isPositive } from "@utils/assetsUtils";
 import Image from "next/image";
 import { useState } from "react";
