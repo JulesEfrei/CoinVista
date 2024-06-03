@@ -1,5 +1,3 @@
-import { apiMarkets } from "@customTypes/api/assets";
-
 const NB_CRYPTO = 2296; //Manually set
 const LIMIT = 10;
 
