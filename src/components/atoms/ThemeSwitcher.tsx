@@ -5,6 +5,11 @@ import { ThemeContext } from "@atoms/context/Theme";
 import { FiSun } from "react-icons/fi";
 import { BsMoonStars } from "react-icons/bs";
 
+enum ThemeEnum {
+  dark = "dark",
+  light = "light",
+}
+
 const ThemeSwitcher = () => {
   const { currTheme, switchTheme } = useContext(ThemeContext);
 

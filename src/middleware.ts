@@ -5,7 +5,7 @@ let locales = ["en", "en-US", "en-UK", "fr", "fr-FR"];
 
 function getLocale(request: NextRequest) {
   const defaultLocale = "en-US";
-  const headerLocale = request.headers.get("Accept-Language").split(",")[0];
+  const headerLocale = request.headers.get("Accept-Language")?.split(",")[0];
   return locales.some((locale) => headerLocale) ? headerLocale : defaultLocale;
 }
 

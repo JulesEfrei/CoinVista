@@ -22,7 +22,7 @@
       "@atoms/*": ["components/atoms/*"],
       "@molecules/*": ["components/molecules/*"],
       "@organisms/*": ["components/organisms/*"],
-      "@types/*": ["type/*"],
+      "@customTypes/*": ["types/*"],
       "@translation/*": ["translation/*"],
       "@utils/*": ["utils/*"]
     }

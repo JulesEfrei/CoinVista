@@ -1,5 +1,5 @@
 import Button from "@atoms/Button";
-import { apiAssetResponse } from "@type/api/assets";
+import type { apiAssetResponse } from "@customTypes/api/assets";
 import { fetchAsset } from "@utils/api/assets";
 import { formatNumber, isFire, isPositive } from "@utils/assetsUtils";
 import Image from "next/image";
@@ -8,8 +8,13 @@ import { MdOutlinePlaylistAdd } from "react-icons/md";
 import { cva } from "class-variance-authority";
 import AssetHistory from "@molecules/AssetHistory";
 import Spinner from "@atoms/Spinner";
+import { getTranslation } from "app/[lang]/translation";
+import type { translation } from "@customTypes/translationType";
 
-const Page = async ({ params }: { params: { id: string } }) => {
+const Page = async ({ params }: { params: { lang: string; id: string } }) => {
+  const translation: translation = await getTranslation(
+    params.lang.split("-")[0]
+  );
   const cryptoDetails: apiAssetResponse = await fetchAsset(params.id);
 
   const rankSpanClasses = cva(["px-3", "py-1", "rounded-md"], {
@@ -52,14 +57,14 @@ const Page = async ({ params }: { params: { id: string } }) => {
             }}
           >
             <MdOutlinePlaylistAdd />
-            Add to watchlist
+            {translation.detail.addToWatchList}
           </Button>
         </div>
 
         <div className="flex flex-col sm:flex-row sm:items-center justify-between sm:gap-0 gap-4">
           <div className="flex flex-col justify-between gap-5 md:gap-3">
             <h4>
-              Rank{" "}
+              {translation.cryptoField.rank}{" "}
               <span
                 className={rankSpanClasses({
                   bg: Number(cryptoDetails.data.rank) <= 3 ? "gold" : "normal",
@@ -69,7 +74,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
               </span>
             </h4>
             <h4>
-              Best exchange{" "}
+              {translation.cryptoField.bestExchange}{" "}
               <span className="px-3 py-1 bg-gray-500 bg-opacity-50 rounded-md">
                 Binance
               </span>
@@ -91,23 +96,31 @@ const Page = async ({ params }: { params: { id: string } }) => {
 
           <div className="grid grid-rows-2 grid-cols-9 md:gap-6 gap-2">
             <div className="col-span-3">
-              <p className="text-gray-500">Market Cap</p>
+              <p className="text-gray-500">
+                {translation.cryptoField.marketCapUsd}
+              </p>
               <h4>$ {formatNumber(cryptoDetails.data.marketCapUsd)}</h4>
             </div>
             <div className="col-span-3">
-              <p className="text-gray-500">Max Supply</p>
+              <p className="text-gray-500">
+                {translation.cryptoField.maxSupply}
+              </p>
               <h4>{formatNumber(cryptoDetails.data.maxSupply)}</h4>
             </div>
             <div className="col-span-3">
-              <p className="text-gray-500">Supply</p>
+              <p className="text-gray-500">{translation.cryptoField.supply}</p>
               <h4>{formatNumber(cryptoDetails.data.supply)}</h4>
             </div>
             <div className="sm:col-span-3 col-span-4">
-              <p className="text-gray-500">Volume USD 24Hr</p>
+              <p className="text-gray-500">
+                {translation.cryptoField.volumeUsd24Hr}
+              </p>
               <h4>$ {formatNumber(cryptoDetails.data.volumeUsd24Hr)}</h4>
             </div>
             <div className="sm:col-span-3 col-span-5">
-              <p className="text-gray-500">VWAP 24Hr</p>
+              <p className="text-gray-500">
+                {translation.cryptoField.vwap24Hr}
+              </p>
               <h4>$ {formatNumber(cryptoDetails.data.vwap24Hr)}</h4>
             </div>
           </div>
@@ -118,6 +131,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
         <AssetHistory
           cryptoId={params.id}
           isPositive={isPositive(cryptoDetails.data.changePercent24Hr)}
+          title={translation.detail.chartTitle}
         />
       </section>
     </>

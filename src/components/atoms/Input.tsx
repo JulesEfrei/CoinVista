@@ -1,5 +1,5 @@
 import { cva } from "class-variance-authority";
-import { InputProps } from "@type/propsType";
+import type { InputProps } from "@customTypes/propsType";
 
 const Input = (props: InputProps) => {
   const classes = cva(

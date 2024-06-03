@@ -2,7 +2,7 @@
 
 import Button from "@atoms/Button";
 import AreaChart from "@atoms/AreaChart";
-import { apiAssetHistory, intervalDate } from "@type/api/assets";
+import type { apiAssetHistory, intervalDate } from "@customTypes/api/assets";
 import { useMemo, useState } from "react";
 import useSWR, { Fetcher } from "swr";
 
@@ -12,13 +12,15 @@ const fetcher: Fetcher<apiAssetHistory, string> = (...args) =>
 const AssetHistory = ({
   cryptoId,
   isPositive,
+  title,
 }: {
   cryptoId: string;
   isPositive: boolean;
+  title: string;
 }) => {
   const [interval, setInterval] = useState<intervalDate>("1D");
 
-  const today = useMemo(() => new Date(), [cryptoId]);
+  const today = useMemo(() => new Date(), []);
   const endTime = today.getTime();
 
   const startTime = useMemo(() => {
@@ -35,7 +37,7 @@ const AssetHistory = ({
       case "3M":
         return d.setFullYear(today.getFullYear() - 3);
     }
-  }, [interval]);
+  }, [interval, today]);
 
   const { data, error, isLoading } = useSWR(
     `https://api.coincap.io/v2/assets/${cryptoId}/history?interval=${
@@ -45,7 +47,7 @@ const AssetHistory = ({
   );
 
   const filterDataByInterval = () => {
-    const initialData = data.data;
+    const initialData = data!.data;
     let output = [initialData.at(-1)];
     let curr = today;
 
@@ -96,7 +98,7 @@ const AssetHistory = ({
   return (
     <div className="border-1 border-slate-500 xs:p-4 p-2 flex flex-col gap-2 rounded-md">
       <div className="flex xs:flex-row flex-col items-start gap-2 xs:gap-0 xs:justify-between xs:items-center">
-        <h1 className="xs:text-lead text-h4 font-normal">History chart</h1>
+        <h1 className="xs:text-lead text-h4 font-normal">{title}</h1>
         <div className="flex items-center justify-center xs:gap-2 gap-1">
           <Button type="button" size="sm" onClick={() => setInterval("1H")}>
             <span className={(interval === "1H" && "text-success").toString()}>
@@ -130,7 +132,7 @@ const AssetHistory = ({
         {error ? <div>An error occured</div> : null}
         {isLoading ? <div>loading...</div> : null}
         {!error && !isLoading ? (
-          data.error ? (
+          data && data.error ? (
             <div>An error occured</div>
           ) : (
             <div className="xs:max-h-[450px] h-[300px] xs:h-auto flex justify-center">
@@ -140,9 +142,11 @@ const AssetHistory = ({
                     1
                   )} price (USD)`,
                 ]}
-                data={[filterDataByInterval().map((elm) => elm.priceUsd)]}
+                data={[
+                  filterDataByInterval().map((elm) => Number(elm!.priceUsd)),
+                ]}
                 labels={filterDataByInterval().map((elm) => {
-                  return new Date(elm.time).toDateString();
+                  return new Date(elm!.time).toDateString();
                 })}
                 color={
                   isPositive

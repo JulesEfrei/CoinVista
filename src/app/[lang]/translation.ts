@@ -5,4 +5,5 @@ const translation = {
     import("@translation/translate.fr").then((module) => module.default),
 };
 
-export const getTranslation = async (locale) => translation[locale]();
+export const getTranslation = async (locale: string) =>
+  locale === "en" || locale === "fr" ? translation[locale]() : translation.en();

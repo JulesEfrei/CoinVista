@@ -1,7 +1,7 @@
 const NB_CRYPTO = 2296; //Manually set
 const LIMIT = 10;
 
-const getOffset = (page) => {
+const getOffset = (page: number) => {
   return LIMIT * (page - 1);
 };
 
@@ -48,10 +48,10 @@ export const fetchAsset: (cryptoId: string) => any = async (cryptoId) => {
 };
 
 export const fetchAssetHistory = async (
-  cryptoId,
-  interval,
-  startTime,
-  endTime
+  cryptoId: string,
+  interval: string,
+  startTime: number,
+  endTime: number
 ) => {
   const data = await fetch(
     `http://api.coincap.io/v2/assets/${cryptoId}/history?interval=${interval}&start=${startTime}&end=${endTime}`,

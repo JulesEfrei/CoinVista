@@ -8,11 +8,19 @@ enum ThemeEnum {
   light = "light",
 }
 
+interface ThemeContext {
+  currTheme: ThemeEnum;
+  switchTheme: () => void;
+}
+
 const inter = Inter({ subsets: ["latin"] });
-export const ThemeContext = createContext(null);
+export const ThemeContext = createContext<ThemeContext>({
+  currTheme: ThemeEnum.light,
+  switchTheme: () => {},
+});
 
 const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [currTheme, setCurrTheme] = useState(ThemeEnum.light);
+  const [currTheme, setCurrTheme] = useState<ThemeEnum>(ThemeEnum.light);
   let systemTheme, storedTheme;
 
   useEffect(() => {
@@ -29,11 +37,11 @@ const ThemeProvider = ({ children }: { children: ReactNode }) => {
     const root = document.getElementsByTagName("body")[0];
     root.classList.toggle(ThemeEnum.dark);
     if (root.classList.contains(ThemeEnum.dark)) {
-      setCurrTheme(ThemeEnum.dark);
       localStorage.setItem("theme", ThemeEnum.dark);
+      setCurrTheme(ThemeEnum.dark);
     } else {
-      setCurrTheme(ThemeEnum.light);
       localStorage.setItem("theme", ThemeEnum.light);
+      setCurrTheme(ThemeEnum.light);
     }
   };
 
