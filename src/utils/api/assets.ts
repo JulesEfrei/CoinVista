@@ -31,6 +31,14 @@ export const fetchAssets: (page: number) => any = async (page) => {
   return data.json();
 };
 
+export const fetchAllAssets: (limit: number) => any = async (limit) => {
+  const data = await fetch(`http://api.coincap.io/v2/assets?limit=${limit}`, {
+    cache: "force-cache",
+  });
+
+  return data.json();
+};
+
 export const fetchAsset: (cryptoId: string) => any = async (cryptoId) => {
   const data = await fetch(`http://api.coincap.io/v2/assets/${cryptoId}`, {
     cache: "force-cache",
@@ -39,9 +47,14 @@ export const fetchAsset: (cryptoId: string) => any = async (cryptoId) => {
   return data.json();
 };
 
-export const fetchAssetHistory = async (cryptoId, interval) => {
+export const fetchAssetHistory = async (
+  cryptoId,
+  interval,
+  startTime,
+  endTime
+) => {
   const data = await fetch(
-    `http://api.coincap.io/v2/assets/${cryptoId}/history?interval=${interval}`,
+    `http://api.coincap.io/v2/assets/${cryptoId}/history?interval=${interval}&start=${startTime}&end=${endTime}`,
     {
       cache: "force-cache",
     }

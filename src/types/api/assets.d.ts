@@ -47,4 +47,5 @@ export interface apiAssetHistory {
     time: Date;
   }[];
   timestamp: string;
+  error?: unknown;
 }
