@@ -7,6 +7,8 @@ import type {
   assetsResponse,
 } from "@customTypes/api/assets";
 import type { translation } from "@customTypes/translationType";
+import { isConnectedS } from "@utils/supabase/actions";
+import { createClient } from "@utils/supabase/server";
 
 export default async function Home({
   params,
@@ -23,19 +25,22 @@ export default async function Home({
     Number(searchParams.page) || 1
   );
 
-  const savedCrypto: apiAssetsResponse = await fetchSavedAssets();
-
   function mergeAndMarkSaved(
-    savedData: apiAssetsResponse,
-    allData: apiAssetsResponse
+    allData: apiAssetsResponse,
+    savedData?: apiAssetsResponse
   ): assetsResponse {
     const uniqueMap = new Map<string, assetResponse>();
 
-    savedData.data.forEach((item) => {
-      if (searchParams.page === undefined || Number(searchParams.page) === 1) {
-        uniqueMap.set(item.id, { ...item, isSaved: true });
-      }
-    });
+    if (savedData) {
+      savedData.data.forEach((item) => {
+        if (
+          searchParams.page === undefined ||
+          Number(searchParams.page) === 1
+        ) {
+          uniqueMap.set(item.id, { ...item, isSaved: true });
+        }
+      });
+    }
 
     allData.data.forEach((item) => {
       if (!uniqueMap.has(item.id)) {
@@ -48,7 +53,27 @@ export default async function Home({
     return mergedData;
   }
 
-  const dataList = mergeAndMarkSaved(savedCrypto, apiAssets);
+  let dataList;
+
+  const {
+    data: { user },
+    error,
+  } = await isConnectedS();
+
+  if (user) {
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from("crypto")
+      .select()
+      .eq("userId", user.id);
+    if (error) throw Error("Cannot fetch user preferences");
+
+    const savedCrypto = await fetchSavedAssets(data.map((elm) => elm.cryptoId));
+
+    dataList = mergeAndMarkSaved(apiAssets, savedCrypto);
+  } else {
+    dataList = mergeAndMarkSaved(apiAssets);
+  }
 
   return (
     <>
@@ -58,6 +83,7 @@ export default async function Home({
           list={dataList}
           page={Number(searchParams.page) || 1}
           translation={translation}
+          user={user}
         />
       </section>
     </>

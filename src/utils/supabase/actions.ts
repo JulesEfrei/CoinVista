@@ -60,3 +60,10 @@ export async function removeAccount(formData: FormData) {
   );
   redirect("/");
 }
+
+export async function isConnectedS() {
+  const supabase = createClient();
+  const user = await supabase.auth.getUser();
+
+  return user;
+}

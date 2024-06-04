@@ -8,10 +8,12 @@ const AssetsList = ({
   list,
   page,
   translation,
+  user,
 }: {
   list: assetResponse[];
   page: number;
   translation: translation;
+  user?: any | null;
 }) => {
   return (
     <>
@@ -43,7 +45,7 @@ const AssetsList = ({
       </div>
 
       {list.map((elm) => (
-        <CryptoItemList crypto={elm} key={elm.id} />
+        <CryptoItemList crypto={elm} key={elm.id} user={user} />
       ))}
 
       <div className="flex items-center gap-3 float-end mb-7">

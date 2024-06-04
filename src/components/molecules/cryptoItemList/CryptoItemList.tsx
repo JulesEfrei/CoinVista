@@ -3,7 +3,9 @@
 import CLink from "@atoms/CLink";
 import type { assetResponse } from "@customTypes/api/assets";
 import { formatNumber, isFire, isPositive } from "@utils/assetsUtils";
+import { createClient } from "@utils/supabase/client";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import {
   PiBookmarkSimpleFill,
@@ -11,8 +13,40 @@ import {
   PiFire,
 } from "react-icons/pi";
 
-const CryptoItemList = ({ crypto }: { crypto: assetResponse }) => {
+const CryptoItemList = ({
+  crypto,
+  user,
+}: {
+  crypto: assetResponse;
+  user: any | null;
+}) => {
   const [isSaved, setIsSaved] = useState(crypto.isSaved);
+  const router = useRouter();
+
+  const supabase = createClient();
+
+  const toggleSave = async () => {
+    const currState = isSaved;
+    if (!user) {
+      router.push("auth/sign-in");
+      return;
+    }
+
+    setIsSaved((curr) => !curr);
+
+    if (currState) {
+      const q = await supabase
+        .from("crypto")
+        .delete()
+        .eq("cryptoId", crypto.id)
+        .eq("userId", user.id);
+    } else {
+      const q = await supabase
+        .from("crypto")
+        .insert({ cryptoId: crypto.id, userId: user.id })
+        .select();
+    }
+  };
 
   return (
     <div className="grid grid-cols-11 px-3 py-2 text-sm xs:text-p">
@@ -68,11 +102,11 @@ const CryptoItemList = ({ crypto }: { crypto: assetResponse }) => {
           {Number(crypto.changePercent24Hr).toFixed(2)}%
         </h4>
         {isSaved ? (
-          <button onClick={() => setIsSaved((curr) => !curr)}>
+          <button onClick={toggleSave}>
             <PiBookmarkSimpleFill className="text-violet-500" />
           </button>
         ) : (
-          <button onClick={() => setIsSaved((curr) => !curr)}>
+          <button onClick={toggleSave}>
             <PiBookmarkSimpleLight />
           </button>
         )}
