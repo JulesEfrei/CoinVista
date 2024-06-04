@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import CLink from "@atoms/CLink";
 import type { assetResponse } from "@customTypes/api/assets";
@@ -14,18 +14,31 @@ import {
 const CryptoItemList = ({ crypto }: { crypto: assetResponse }) => {
   const [isSaved, setIsSaved] = useState(crypto.isSaved);
 
+  const [imageError, setImageError] = useState(false);
+
+  const handleError = () => {
+    setImageError(true);
+  };
+
+  const imageUrl = `https://assets.coincap.io/assets/icons/${crypto.symbol.toLowerCase()}@2x.png`;
+
   return (
     <div className="grid grid-cols-11 px-3 py-2 text-sm xs:text-p">
       <div className="col-span-4 xs:col-span-3 w-full grid grid-cols-subgrid items-center gap-0 xs:gap-2">
         <div className="col-span-2 xs:col-span-1 flex items-center gap-3">
           <h3 className="text-slate-400">{crypto.rank}</h3>
           <div className="w-4 sm:w-6 h-4 sm:h-6 rounded-full">
-            <Image
-              src={`https://assets.coincap.io/assets/icons/${crypto.symbol.toLowerCase()}@2x.png`}
-              alt={`${crypto.name} icon`}
-              width={24}
-              height={24}
-            />
+            {imageError ? (
+              <img src="./icon/icon.png" alt="Image par défaut" width={24} height={24} />
+            ) : (
+              <Image
+                src={imageUrl}
+                alt={`${crypto.name} icon`}
+                width={24}
+                height={24}
+                onError={handleError}
+              />
+            )}
           </div>
         </div>
         <div className="col-span-2">
