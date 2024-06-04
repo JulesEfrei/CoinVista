@@ -9,13 +9,9 @@ export const getMaxPage = () => {
   return Math.ceil(NB_CRYPTO / LIMIT);
 };
 
-const savedIds = async () => ["bitcoin", "uniswap", "polygon", "stellar"];
-
-export const fetchSavedAssets = async () => {
-  const s = await savedIds();
-
+export const fetchSavedAssets = async (savedIds: string[]) => {
   const data = await fetch(
-    `http://api.coincap.io/v2/assets?ids=${s.join(",")}}`,
+    `http://api.coincap.io/v2/assets?ids=${savedIds.join(",")}`,
     { cache: "force-cache" }
   );
 

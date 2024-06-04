@@ -17,9 +17,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang={params.lang.split("-")[0] || "en"}>
-      <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-      </head>
       <ThemeProvider>
         <main className="h-full w-full p-2 sm:p-5 relative">{children}</main>
         <Navigation lang={params.lang.split("-")[0] || "en"} />
