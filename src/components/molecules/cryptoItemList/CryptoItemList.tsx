@@ -18,7 +18,7 @@ const CryptoItemList = ({ crypto }: { crypto: assetResponse }) => {
     <div className="grid grid-cols-11 px-3 py-2 text-sm xs:text-p">
       <div className="col-span-4 xs:col-span-3 w-full grid grid-cols-subgrid items-center gap-0 xs:gap-2">
         <div className="col-span-2 xs:col-span-1 flex items-center gap-3">
-          <h3 className="text-slate-400">{crypto.rank}</h3>
+          <h3 className="text-slate-400 min-w-4">{crypto.rank}</h3>
           <div className="w-4 sm:w-6 h-4 sm:h-6 rounded-full">
             <Image
               src={`https://assets.coincap.io/assets/icons/${crypto.symbol.toLowerCase()}@2x.png`}
