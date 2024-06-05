@@ -49,7 +49,7 @@ export default function SelectCryptoForm({
   };
 
   return (
-    <div className="p-5 flex flex-col h-full gap-5">
+    <div className="p-5 flex flex-col h-full overflow-y-scroll gap-5">
       <h2 className="text-lead font-bold">
         {translation.selectCryptoForm.selectTitle}
       </h2>
