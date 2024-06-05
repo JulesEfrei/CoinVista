@@ -5,6 +5,7 @@ import AreaChart from "@atoms/AreaChart";
 import type { apiAssetHistory, intervalDate } from "@customTypes/api/assets";
 import { useMemo, useState } from "react";
 import useSWR, { Fetcher } from "swr";
+import Spinner from "@atoms/Spinner";
 
 const fetcher: Fetcher<apiAssetHistory, string> = (...args) =>
   fetch(...args).then((res) => res.json());
@@ -45,6 +46,10 @@ const AssetHistory = ({
     }&start=${startTime}&end=${endTime}`,
     fetcher
   );
+
+  if (error || data?.error) {
+    throw Error("Impossible to fetch graph");
+  }
 
   const filterDataByInterval = () => {
     const initialData = data!.data;
@@ -129,44 +134,38 @@ const AssetHistory = ({
       </div>
 
       <div>
-        {error ? <div>An error occured</div> : null}
-        {isLoading ? <div>loading...</div> : null}
-        {!error && !isLoading ? (
-          data && data.error ? (
-            <div>An error occured</div>
+        <div className="xs:max-h-[450px] h-[300px] xs:h-auto flex justify-center">
+          {isLoading ? (
+            <Spinner />
           ) : (
-            <div className="xs:max-h-[450px] h-[300px] xs:h-auto flex justify-center">
-              <AreaChart
-                title={[
-                  `${cryptoId[0].toUpperCase()}${cryptoId.slice(
-                    1
-                  )} price (USD)`,
-                ]}
-                data={[
-                  filterDataByInterval().map((elm) => Number(elm!.priceUsd)),
-                ]}
-                labels={filterDataByInterval().map((elm) => {
-                  return new Date(elm!.time).toDateString();
-                })}
-                color={
-                  isPositive
-                    ? [
-                        {
-                          color: "#22c55e",
-                          backgroundColor: "rgba(34, 197, 94, .5)",
-                        },
-                      ]
-                    : [
-                        {
-                          color: "#dc2626",
-                          backgroundColor: "rgba(220, 38, 38, .5)",
-                        },
-                      ]
-                }
-              />
-            </div>
-          )
-        ) : null}
+            <AreaChart
+              title={[
+                `${cryptoId[0].toUpperCase()}${cryptoId.slice(1)} price (USD)`,
+              ]}
+              data={[
+                filterDataByInterval().map((elm) => Number(elm!.priceUsd)),
+              ]}
+              labels={filterDataByInterval().map((elm) => {
+                return new Date(elm!.time).toDateString();
+              })}
+              color={
+                isPositive
+                  ? [
+                      {
+                        color: "#22c55e",
+                        backgroundColor: "rgba(34, 197, 94, .5)",
+                      },
+                    ]
+                  : [
+                      {
+                        color: "#dc2626",
+                        backgroundColor: "rgba(220, 38, 38, .5)",
+                      },
+                    ]
+              }
+            />
+          )}
+        </div>
       </div>
     </div>
   );
