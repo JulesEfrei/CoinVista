@@ -23,25 +23,22 @@ const Button = (props: Props) => {
       "items-center",
       "font-medium",
       "xs:gap-2",
-      "shadow-sm",
       "xs:text-p",
       "text-sm",
     ],
     {
       variants: {
         intent: {
-          /*primary: "",
-        secondary: "",*/
-          light: "text-slate-800 bg-slate-100 hover:bg-slate-200",
-          dark: "text-white bg-black dark:bg-gray-800 dark:hover:opacity-75",
+          light: "text-slate-800 bg-slate-100 hover:bg-slate-200 shadow-sm",
+          dark: "text-white bg-black dark:bg-gray-800 dark:hover:opacity-75 shadow-sm",
           white:
-            "text-slate-800 bg-white hover:bg-slate-200 border-1 border-slate-400",
+            "text-slate-800 bg-white hover:bg-slate-200 border-1 border-slate-400 shadow-sm",
           danger:
-            "text-white bg-red-400 hover:bg-danger dark:text-white dark dark:bg-danger dark:hover:bg-red-800",
+            "text-white bg-red-400 hover:bg-danger dark:text-white dark dark:bg-danger dark:hover:bg-red-800 shadow-sm",
           underline: "text-black hover:underline dark:text-white",
           disabled:
-            "text-slate-400 bg-slate-200 dark:text-slate-700 dark:bg-black dark:border-1 dark:border-slate-700",
-          icon: "border-1 text-black border-slate-300 bg-white hover:bg-slate-200 dark:border-slate-700 dark:text-white dark:bg-black dark:hover:bg-gray-800",
+            "text-slate-400 bg-slate-200 dark:text-slate-700 dark:bg-black dark:border-1 dark:border-slate-700 shadow-sm",
+          icon: "border-1 text-black border-slate-300 bg-white hover:bg-slate-200 dark:border-slate-700 dark:text-white dark:bg-black dark:hover:bg-gray-800 shadow-sm",
         },
         size: {
           sm: "px-3 text-sm",
