@@ -24,7 +24,8 @@
       "@organisms/*": ["components/organisms/*"],
       "@customTypes/*": ["types/*"],
       "@translation/*": ["translation/*"],
-      "@utils/*": ["utils/*"]
+      "@utils/*": ["utils/*"],
+      "@public/*": ["../public/*"]
     }
   },
   "include": [
