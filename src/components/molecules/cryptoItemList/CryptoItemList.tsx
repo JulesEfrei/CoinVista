@@ -12,6 +12,7 @@ import {
   PiBookmarkSimpleLight,
   PiFire,
 } from "react-icons/pi";
+import logo from "@public/en-US/icon.png";
 
 const CryptoItemList = ({
   crypto,
@@ -21,6 +22,7 @@ const CryptoItemList = ({
   user: any | null;
 }) => {
   const [isSaved, setIsSaved] = useState(crypto.isSaved);
+  const [imageError, setImageError] = useState(false);
   const router = useRouter();
 
   const supabase = createClient();
@@ -54,12 +56,22 @@ const CryptoItemList = ({
         <div className="col-span-2 xs:col-span-1 flex items-center gap-3">
           <h3 className="text-slate-400 min-w-4">{crypto.rank}</h3>
           <div className="w-4 sm:w-6 h-4 sm:h-6 rounded-full">
-            <Image
-              src={`https://assets.coincap.io/assets/icons/${crypto.symbol.toLowerCase()}@2x.png`}
-              alt={`${crypto.name} icon`}
-              width={24}
-              height={24}
-            />
+            {!imageError ? (
+              <Image
+                src={`https://assets.coincap.io/assets/icons/${crypto.symbol.toLowerCase()}@2x.png`}
+                alt={`${crypto.name} icon`}
+                width={24}
+                height={24}
+                onError={() => setImageError(true)}
+              />
+            ) : (
+              <Image
+                src={logo}
+                alt={`${crypto.name} icon`}
+                width={24}
+                height={24}
+              />
+            )}
           </div>
         </div>
         <div className="col-span-2">
