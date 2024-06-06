@@ -9,6 +9,9 @@ import type {
 import type { translation } from "@customTypes/translationType";
 import { isConnectedS } from "@utils/supabase/actions";
 import { createClient } from "@utils/supabase/server";
+import ExchangeCard from "@organisms/ExchangeCard";
+import { fetchExchanges } from "@utils/api/exchanges";
+import { exchange } from "@customTypes/api/exchanges";
 
 export default async function Home({
   params,
@@ -75,9 +78,33 @@ export default async function Home({
     dataList = mergeAndMarkSaved(apiAssets);
   }
 
+  const { data: exchanges } = await fetchExchanges();
+
+  if (exchanges.error) {
+    throw Error("Unable to fetch exchanges.");
+  }
+
   return (
     <>
-      <section className="bg-violet-600 w-full h-1/2"></section>
+      <section className="w-full md:h-1/2 h-auto border-2 border-gray-500">
+        <div className="h-3/5">
+          <ExchangeCard
+            translation={translation}
+            exchange={exchanges[0]}
+            intent="primary"
+          />
+        </div>
+        <div className="md:h-2/5 h-auto flex md:flex-row flex-col items-center justify-between">
+          {exchanges.splice(1, 4).map((elm: exchange, index: number) => (
+            <ExchangeCard
+              translation={translation}
+              exchange={elm}
+              intent="secondary"
+              key={`${elm.id}-${index}`}
+            />
+          ))}
+        </div>
+      </section>
       <section className="mt-10 lg:px-20">
         <AssetsList
           list={dataList}

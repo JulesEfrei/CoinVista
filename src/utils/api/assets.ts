@@ -43,17 +43,6 @@ export const fetchAsset: (cryptoId: string) => any = async (cryptoId) => {
   return data.json();
 };
 
-export const fetchExchange: (cryptoId: string) => any = async (cryptoId) => {
-  const data = await fetch(
-    `http://api.coincap.io/v2/assets/${cryptoId}/markets`,
-    {
-      cache: "force-cache",
-    }
-  );
-
-  return data.json();
-};
-
 export const fetchAssetHistory = async (
   cryptoId: string,
   interval: string,

@@ -54,6 +54,13 @@ const fr: translation = {
   assetList: {
     maxPage: "Page Max",
   },
+  exchange: {
+    rank: "Rang",
+    exchangeUrl: "Site",
+    percentTotalVolume: "Pourcentage total du volume d'échange",
+    tradingPairs: "Combinaisons d'échanges",
+    volumeUsd: "Volume Usd",
+  },
 };
 
 export default fr;

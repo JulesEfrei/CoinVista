@@ -1,6 +1,6 @@
 import Button from "@atoms/Button";
 import type { apiAssetResponse, apiMarkets } from "@customTypes/api/assets";
-import { fetchAsset, fetchExchange } from "@utils/api/assets";
+import { fetchAsset } from "@utils/api/assets";
 import { formatNumber, isFire, isPositive } from "@utils/assetsUtils";
 import Image from "next/image";
 import { PiFire } from "react-icons/pi";
@@ -10,6 +10,7 @@ import AssetHistory from "@molecules/AssetHistory";
 import Spinner from "@atoms/Spinner";
 import { getTranslation } from "app/[lang]/translation";
 import type { translation } from "@customTypes/translationType";
+import { fetchExchange } from "@utils/api/exchanges";
 
 const Page = async ({ params }: { params: { lang: string; id: string } }) => {
   const translation: translation = await getTranslation(

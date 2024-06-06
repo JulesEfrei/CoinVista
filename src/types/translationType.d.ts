@@ -52,4 +52,11 @@ export type translation = {
   assetList: {
     maxPage: string;
   };
+  exchange: {
+    rank: string;
+    percentTotalVolume: string;
+    volumeUsd: string;
+    tradingPairs: string;
+    exchangeUrl: string;
+  };
 };
