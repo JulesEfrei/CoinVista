@@ -54,7 +54,7 @@ export default async function ComparePage({
   return (
     <>
       <h1 className="text-h1">{translation.compare.title}</h1>
-      <div className="flex sm:flex-row flex-col mt-10 gap-5 md:h-2/3 h-screen">
+      <div className="flex sm:flex-row flex-col mt-10 gap-5 md:h-2/3 h-auto">
         <div className="border-1 border-slate-500 md:w-3/4 w-full min-h-96 xs:p-4 p-2 flex justify-center items-center gap-2 rounded-md">
           {idsAsArray.length > 0 ? (
             <AreaChart

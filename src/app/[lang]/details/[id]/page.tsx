@@ -56,12 +56,7 @@ const Page = async ({ params }: { params: { lang: string; id: string } }) => {
               </h4>
             </div>
           </div>
-          <Button
-            type="button"
-            onClick={async () => {
-              "use server";
-            }}
-          >
+          <Button type="button" disabled={true}>
             <MdOutlinePlaylistAdd />
             {translation.detail.addToWatchList}
           </Button>
