@@ -100,6 +100,16 @@ const AssetHistory = ({
       : output.reverse();
   };
 
+  const week = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
   return (
     <div className="border-1 border-slate-500 xs:p-4 p-2 flex flex-col gap-2 rounded-md">
       <div className="flex xs:flex-row flex-col items-start gap-2 xs:gap-0 xs:justify-between xs:items-center">
@@ -146,7 +156,14 @@ const AssetHistory = ({
                 filterDataByInterval().map((elm) => Number(elm!.priceUsd)),
               ]}
               labels={filterDataByInterval().map((elm) => {
-                return new Date(elm!.time).toDateString();
+                return interval === "1H"
+                  ? week[new Date(elm!.time).getDay()] +
+                      " " +
+                      new Date(elm!.time).getDate() +
+                      " " +
+                      new Date(elm!.time).getHours() +
+                      ":00"
+                  : new Date(elm!.time).toDateString();
               })}
               color={
                 isPositive

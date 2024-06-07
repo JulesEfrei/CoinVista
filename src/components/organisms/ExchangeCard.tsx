@@ -81,10 +81,3 @@ export default function ExchangeCard(props: Props) {
     </div>
   );
 }
-
-/*
-
-Main => name, rank, percentTotalVolume, volumeUsd, tradingPaus, link
-Secondary => name, rank, url, percentTotalVolume
-
-*/
