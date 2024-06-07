@@ -3,7 +3,7 @@ import CryptoItemListPlaceholder from "@molecules/cryptoItemList/CryptoItemListP
 const Loading = () => {
   return (
     <>
-      <section className="bg-gray-500 w-full h-1/2 animate-pulse"></section>
+      <section className="bg-gray-500 w-full h-[50dvh] animate-pulse"></section>
       <section className="mt-10 lg:px-20">
         <div className="grid grid-cols-11 px-3 py-2 text-sm xs:text-p rounded-md dark:bg-slate-900 bg-slate-100">
           <div className="col-span-4 xs:col-span-3 w-full grid grid-cols-subgrid items-center gap-2">
