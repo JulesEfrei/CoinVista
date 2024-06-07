@@ -29,7 +29,7 @@ export default function ExchangeCard(props: Props) {
     h-full flex flex-col justify-between gap-5 relative overflow-hidden
     `}
     >
-      <div className="w-40 h-40 absolute right-0 top-0 translate-x-[50%] translate-y-[-50%] rotate-45 bg-slate-50 z-0"></div>
+      <div className="w-40 h-40 absolute right-0 top-0 translate-x-[50%] translate-y-[-50%] rotate-45 bg-slate-50 dark:bg-slate-950 z-0"></div>
       <h2
         className={`
     ${
@@ -38,11 +38,11 @@ export default function ExchangeCard(props: Props) {
     `}
       >
         <span className="mr-3 text-violet-400">{props.exchange.rank}.</span>
-        {props.exchange.name}
+        {props.exchange.name.split(" ")[0]}
       </h2>
-      <div className="flex justify-between items-center z-10">
+      <div className="flex sm:flex-row flex-col justify-between sm:items-center items-start sm-gap-0 gap-3 z-10">
         <div>
-          <h4 className="text-slate-400 md:text-h4 text-p">
+          <h4 className="text-slate-400 lg:text-h4 text-p">
             {translation.percentTotalVolume}
           </h4>
           <p className="md:text-p text-sm">
@@ -52,7 +52,7 @@ export default function ExchangeCard(props: Props) {
         {props.intent === "primary" ? (
           <>
             <div>
-              <h4 className="text-slate-400 md:text-h4 text-p">
+              <h4 className="text-slate-400 lg:text-h4 text-p">
                 {translation.volumeUsd}
               </h4>
               <p className="md:text-p text-sm">
@@ -60,7 +60,7 @@ export default function ExchangeCard(props: Props) {
               </p>
             </div>
             <div>
-              <h4 className="text-slate-400 md:text-h4 text-p">
+              <h4 className="text-slate-400 lg:text-h4 text-p">
                 {translation.tradingPairs}
               </h4>
               <p className="md:text-p text-sm">{props.exchange.tradingPairs}</p>
@@ -70,7 +70,7 @@ export default function ExchangeCard(props: Props) {
       </div>
       <div className={props.intent === "primary" ? "w-1/5" : ""}>
         <a
-          className="rounded-md py-2 flex items-center font-medium gap-2 px-3 text-sm justify-center text-slate-800 bg-slate-100 hover:bg-slate-200"
+          className="rounded-md py-2 flex items-center font-medium gap-2 px-3 text-sm justify-center text-slate-800 bg-slate-100 hover:bg-slate-200 dark:text-white dark:bg-gray-800 dark:hover:text-black"
           target="_blank"
           href={props.exchange.exchangeUrl}
         >
