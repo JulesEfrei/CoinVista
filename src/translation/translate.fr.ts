@@ -57,7 +57,7 @@ const fr: translation = {
   exchange: {
     rank: "Rang",
     exchangeUrl: "Site",
-    percentTotalVolume: "Pourcentage total du volume d'échange",
+    percentTotalVolume: "Volume d'échange Total (%)",
     tradingPairs: "Combinaisons d'échanges",
     volumeUsd: "Volume Usd",
   },

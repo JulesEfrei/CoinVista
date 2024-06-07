@@ -17,8 +17,6 @@ const StyledLink = (props: Props) => {
     {
       variants: {
         intent: {
-          /*primary: "",
-            secondary: "",*/
           light: "text-slate-800 bg-slate-100 hover:bg-slate-200",
           dark: "text-white bg-black dark:bg-gray-800 dark:hover:opacity-75",
           white:
