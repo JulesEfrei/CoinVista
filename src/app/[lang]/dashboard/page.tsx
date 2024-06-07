@@ -86,7 +86,7 @@ export default async function Home({
 
   return (
     <>
-      <section className="w-full md:h-1/2 h-auto border-2 border-gray-500">
+      <section className="w-full md:h-1/2 h-auto border-2 border-gray-500 rounded-md">
         <div className="h-3/5">
           <ExchangeCard
             translation={translation}

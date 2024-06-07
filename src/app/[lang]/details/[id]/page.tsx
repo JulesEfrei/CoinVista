@@ -7,7 +7,6 @@ import { PiFire } from "react-icons/pi";
 import { MdOutlinePlaylistAdd } from "react-icons/md";
 import { cva } from "class-variance-authority";
 import AssetHistory from "@molecules/AssetHistory";
-import Spinner from "@atoms/Spinner";
 import { getTranslation } from "app/[lang]/translation";
 import type { translation } from "@customTypes/translationType";
 import { fetchExchange } from "@utils/api/exchanges";
@@ -57,12 +56,7 @@ const Page = async ({ params }: { params: { lang: string; id: string } }) => {
               </h4>
             </div>
           </div>
-          <Button
-            type="button"
-            onClick={async () => {
-              "use server";
-            }}
-          >
+          <Button type="button" disabled={true}>
             <MdOutlinePlaylistAdd />
             {translation.detail.addToWatchList}
           </Button>
